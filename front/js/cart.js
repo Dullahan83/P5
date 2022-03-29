@@ -1,4 +1,4 @@
-
+//récupère et affiche les produits mis dans le panier
 for(let item of getCart()){
     fetch("http://localhost:3000/api/products" + "/" + item.id)
     .then(data => data.json())
@@ -24,10 +24,11 @@ for(let item of getCart()){
                                                                 </div>
                                                             </div>
                                                         </article>`
-                                                        getDeleteBtnList();
-                                                        getQuantityBtnList();
+                                                        const productPrice = product.price
+                                                        getDeleteBtnList(productPrice);
+                                                        getQuantityBtnList(productPrice);
                                                         getTotalCartItems();
-                                                        getTotalCartPrice();
+                                                        getTotalCartPrice(productPrice);
                                                         
     })
 }
