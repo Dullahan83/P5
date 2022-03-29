@@ -15,16 +15,17 @@ function getCart(){
 
 function addToCart(basketProduct){
     const cart = getCart();
-    const foundProduct = cart.find(p => ((p.id === basketProduct.id) && (p.color === basketProduct.color)));
-    if(foundProduct){
-        foundProduct.quantity += parseInt(basketProduct.quantity);
+        const foundProduct = cart.find(p => ((p.id === basketProduct.id) && (p.color === basketProduct.color)));
+        if(foundProduct){
+            foundProduct.quantity = parseInt(foundProduct.quantity) + parseInt(basketProduct.quantity);
+            }
+        else if(document.getElementById("quantity").value <= 0){
+            document.getElementById("quantity").value = 1;
         }
-    else if(document.getElementById("quantity").value <= 0){
-        document.getElementById("quantity").value = 1;
-    }
-    else{
-        cart.push(basketProduct);
-    }
+        else{
+            cart.push(basketProduct);
+        }
+    
     saveCart(cart);
 }
 
@@ -62,18 +63,21 @@ function changeQuantity(btnPath, id, color, productPrice){
 function getTotalCartPrice(productPrice){
     const cart = getCart();
     let totalPrice = 0;
+    
     for (const item of cart) {
         totalPrice += parseInt(item.quantity) * parseInt(productPrice)
     }
     document.getElementById("totalPrice").innerHTML = totalPrice;
 }
 
-function getDeleteBtnList(productPrice){
+function getDeleteBtnList(){
     const btnDeleteList= document.querySelectorAll(".deleteItem")
     btnDeleteList.forEach((btn) => {
         let id = btn.closest(".cart__item").dataset.id;
         let color = btn.closest(".cart__item").dataset.color;
         let path = btn.closest(".cart__item");
+        let productPrice = btn.closest(".cart__item").querySelector(".cart__item__content__description").lastElementChild.innerHTML
+        console.log(productPrice)
         btn.addEventListener("click", function(e){
             
             deleteFromCart(id, color, path, productPrice);
@@ -81,15 +85,18 @@ function getDeleteBtnList(productPrice){
     });
 }
 
-function getQuantityBtnList(productPrice){
+function getQuantityBtnList(){
     const quantityBtnList= document.querySelectorAll(".itemQuantity")
     quantityBtnList.forEach((btn) =>{
         let btnPath = btn.closest(".itemQuantity")
         let id = btn.closest(".cart__item").dataset.id;
         let color = btn.closest(".cart__item").dataset.color;
+        let productPrice = btn.closest(".cart__item").querySelector(".cart__item__content__description").lastElementChild.innerHTML
+        console.log(productPrice)
         btn.addEventListener("input", function(e){
             
             changeQuantity(btnPath, id, color, productPrice);
+            getTotalCartPrice(productPrice)
         })
     });
 }

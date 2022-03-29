@@ -24,11 +24,12 @@ for(let item of getCart()){
                                                                 </div>
                                                             </div>
                                                         </article>`
-                                                        const productPrice = product.price
-                                                        getDeleteBtnList(productPrice);
-                                                        getQuantityBtnList(productPrice);
+                                                        
+                                                        const productPrice = document.querySelector(".cart__item__content__description").lastElementChild.innerHTML
+                                                        getDeleteBtnList();
+                                                        getQuantityBtnList();
                                                         getTotalCartItems();
-                                                        getTotalCartPrice(productPrice);
+                                                        getTotalCartPrice();
                                                         
     })
 }
