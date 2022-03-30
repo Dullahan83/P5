@@ -16,7 +16,7 @@ fetch("http://localhost:3000/api/products" + "/" + id)
     }
 
 
-    
+
     document.getElementById("addToCart").addEventListener("click",function(){
         const basketProduct = {
             "id": product._id,
@@ -26,4 +26,4 @@ fetch("http://localhost:3000/api/products" + "/" + id)
         addToCart(basketProduct);
     });
 });
-
+getTotalCartItems();
