@@ -1,12 +1,10 @@
 const cart = getCart()
 
 function sortArray(x, y){
-    console.log(x.id)
     return x.id.localeCompare(y.id)
 }
 
 const sortedCart = cart.sort(sortArray)
-console.log(sortedCart)
 
 //récupère et affiche les produits mis dans le panier
 if(window.location.href === "http://127.0.0.1:5502/front/html/cart.html"){

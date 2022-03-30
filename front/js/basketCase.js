@@ -1,4 +1,3 @@
-console.log(window.location.href)
 function saveCart(cart){
     localStorage.setItem("cart", JSON.stringify(cart));
 }
@@ -47,10 +46,19 @@ function getTotalCartItems(){
     }
     if(window.location.href === "http://127.0.0.1:5502/front/html/cart.html"){
         document.getElementById("totalQuantity").innerHTML = total;
+        if(total === 0){
+            document.querySelector(".limitedWidthBlock nav ul").lastElementChild.querySelector("li").textContent =  `Panier`
+        }
+        else{
+            document.querySelector(".limitedWidthBlock nav ul").lastElementChild.querySelector("li").textContent =  `Panier (${total})`
+        }
+    }
+    else if(total === 0){
+        document.querySelector(".limitedWidthBlock nav ul").lastElementChild.querySelector("li").textContent =  `Panier`
+    }
+    else{
         document.querySelector(".limitedWidthBlock nav ul").lastElementChild.querySelector("li").textContent =  `Panier (${total})`
     }
-    document.querySelector(".limitedWidthBlock nav ul").lastElementChild.querySelector("li").textContent =  `Panier (${total})`
-    
 }
 
 function changeQuantity(btnPath, id, color, productPrice){
