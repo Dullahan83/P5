@@ -15,14 +15,26 @@ function getCart(){
 function addToCart(basketProduct){
     const cart = getCart();
         const foundProduct = cart.find(p => ((p.id === basketProduct.id) && (p.color === basketProduct.color)));
-        if(foundProduct){
-            foundProduct.quantity = parseInt(foundProduct.quantity) + parseInt(basketProduct.quantity);
-            }
-        else if(document.getElementById("quantity").value <= 0){
+        if(document.getElementById("quantity").value <= 0){
             document.getElementById("quantity").value = 1;
+            document.getElementById("addToCart").style.color = "red";
+            setTimeout(removeMessage, 500)
+        }
+
+        else if(foundProduct && document.getElementById("colors").value != null){
+            foundProduct.quantity = parseInt(foundProduct.quantity) + parseInt(basketProduct.quantity);
+            document.getElementById("addToCart").style.color = "lightGreen";
+            setTimeout(removeMessage, 500)
+            
+        }
+        else if(document.getElementById("colors").value === ""){
+            document.getElementById("addToCart").style.color = "red";
+            setTimeout(removeMessage, 500)
         }
         else{
             cart.push(basketProduct);
+            document.getElementById("addToCart").style.color = "lightGreen";
+            setTimeout(removeMessage, 500)
         }
     
     saveCart(cart);

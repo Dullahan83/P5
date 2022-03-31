@@ -3,7 +3,6 @@ const cart = getCart()
 function sortArray(x, y){
     return x.id.localeCompare(y.id)
 }
-
 const sortedCart = cart.sort(sortArray)
 
 //récupère et affiche les produits mis dans le panier
