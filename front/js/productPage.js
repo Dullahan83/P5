@@ -15,8 +15,6 @@ fetch("http://localhost:3000/api/products" + "/" + id)
         select.appendChild(option);
     }
 
-
-
     document.getElementById("addToCart").addEventListener("click",function(){
         const basketProduct = {
             "id": product._id,
@@ -27,6 +25,11 @@ fetch("http://localhost:3000/api/products" + "/" + id)
     });
 });
 getTotalCartItems();
+
+function changeBtnColor(color){
+    document.getElementById("addToCart").style.color = color;
+}
+
 function resetBtnColor(){
     const btn = document.getElementById("addToCart");
     btn.style.color = "white"
