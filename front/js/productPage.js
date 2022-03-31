@@ -27,7 +27,7 @@ fetch("http://localhost:3000/api/products" + "/" + id)
     });
 });
 getTotalCartItems();
-function removeMessage(){
+function resetBtnColor(){
     const btn = document.getElementById("addToCart");
     btn.style.color = "white"
 }
