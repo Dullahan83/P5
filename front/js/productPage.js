@@ -26,7 +26,7 @@ fetch("http://localhost:3000/api/products" + "/" + id)
         addToCart(basketProduct);
     });
 });
-
+getTotalCartItems();
 function removeMessage(){
     const btn = document.getElementById("addToCart");
     btn.style.color = "white"
