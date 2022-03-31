@@ -8,7 +8,7 @@ function getCart(){
         return [];
     }
     else {
-        return JSON.parse(cart).sort();
+        return JSON.parse(cart);
     }
 }
 
@@ -21,16 +21,18 @@ function addToCart(basketProduct){
             setTimeout(removeMessage, 500)
         }
 
+        else if(document.getElementById("colors").value === ""){
+            document.getElementById("addToCart").style.color = "red";
+            setTimeout(removeMessage, 500)
+        }
+
         else if(foundProduct && document.getElementById("colors").value != null){
             foundProduct.quantity = parseInt(foundProduct.quantity) + parseInt(basketProduct.quantity);
             document.getElementById("addToCart").style.color = "lightGreen";
             setTimeout(removeMessage, 500)
             
         }
-        else if(document.getElementById("colors").value === ""){
-            document.getElementById("addToCart").style.color = "red";
-            setTimeout(removeMessage, 500)
-        }
+        
         else{
             cart.push(basketProduct);
             document.getElementById("addToCart").style.color = "lightGreen";
