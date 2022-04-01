@@ -57,7 +57,7 @@ function getTotalCartItems(){
     for (const item of cart) {
         total += parseInt(item.quantity)
     }
-    if(window.location.href === "http://127.0.0.1:5502/front/html/cart.html"){
+    if(window.location.href === getUrl() + "/front/html/cart.html"){
         document.getElementById("totalQuantity").innerHTML = total;
         if(total === 0){
             document.querySelector(".limitedWidthBlock nav ul").lastElementChild.querySelector("li").textContent =  `Panier`
@@ -130,3 +130,7 @@ function getQuantityBtnList(){
     });
 }
 
+function getUrl(){
+    var url = window.location.href;
+    return url.slice(0, url.indexOf('/front'));
+}

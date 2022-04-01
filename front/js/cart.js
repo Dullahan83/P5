@@ -6,7 +6,7 @@ function sortArray(x, y){
 const sortedCart = cart.sort(sortArray)
 
 //récupère et affiche les produits mis dans le panier
-if(window.location.href === "http://127.0.0.1:5502/front/html/cart.html"){
+if(window.location.href === getUrl() + "/front/html/cart.html"){
     for(let item of sortedCart){
         fetch("http://localhost:3000/api/products" + "/" + item.id)
         .then(data => data.json())
