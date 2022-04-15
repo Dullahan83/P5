@@ -15,6 +15,25 @@ document.querySelector("#order").addEventListener("click", (e)=>{
     for(let input of inputs){
         isFormValid &= checkValidity(input);
         if(!isFormValid){
+            switch (input.id){
+                case 'firstName':
+                    input.nextElementSibling.textContent = "Veuillez renseigner votre Prénom s'il vous plaît";
+                    break;
+                case 'lastName':
+                    input.nextElementSibling.textContent = "Veuillez renseigner votre Nom s'il vous plaît";
+                    break;
+                case 'address':
+                    input.nextElementSibling.textContent = "Veuillez renseigner votre Adresse s'il vous plaît";
+                    break;
+                case 'city':
+                    input.nextElementSibling.textContent = "Veuillez renseigner votre Ville s'il vous plaît";
+                    break;
+                case 'email':
+                    input.nextElementSibling.textContent = "Veuillez renseigner votre Email s'il vous plaît";
+                    break;
+                default:
+                    break;
+            }
             break;
         }
     }
@@ -45,7 +64,6 @@ function createCustomer(){
 //Change le message d'erreurs en fonction des cas
 const fieldList = document.querySelectorAll("input")
 for (const field of fieldList) {
-    console.log(field.id)
     field.addEventListener("change", function(e){
         if(field.validity.tooShort){
             field.nextElementSibling.textContent = "C'est trop court ! Vous avez dû l'entendre souvent celle là"
