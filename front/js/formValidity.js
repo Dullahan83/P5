@@ -1,9 +1,9 @@
-
-document.getElementById("firstName").setAttribute("pattern", "[a-zA-Z-]{3,}");
+//Ajoute nos patterns
+document.getElementById("firstName").setAttribute("pattern", "[\\p{L}- ]+");
 document.getElementById("firstName").setAttribute("minlength", 3);
-document.getElementById("lastName").setAttribute("pattern", "[a-zA-Z-]{3,}");
+document.getElementById("lastName").setAttribute("pattern", "[\\p{L}- ]+");
 document.getElementById("lastName").setAttribute("minlength", 3);
-document.getElementById("city").setAttribute("pattern", "[a-zA-Z- ]{3,}");
+document.getElementById("city").setAttribute("pattern", "[\\p{L}- ]+");
 document.getElementById("city").setAttribute("minlength", 4);
 
 
@@ -25,10 +25,12 @@ document.querySelector("#order").addEventListener("click", (e)=>{
     }
 });
 
+//Vérifie la validité d'un champ
 function checkValidity(input){
     return input.checkValidity();
 }
 
+//Crée une fiche client
 function createCustomer(){
     let firstName = document.getElementById("firstName").value;
     let lastName= document.getElementById("lastName").value;
@@ -40,27 +42,36 @@ function createCustomer(){
     return contact;
 }
 
+//Change le message d'erreurs en fonction des cas
 const fieldList = document.querySelectorAll("input")
 for (const field of fieldList) {
+    console.log(field.id)
     field.addEventListener("change", function(e){
         if(field.validity.tooShort){
-            field.nextElementSibling.innerHTML = "C'est trop court ! Vous avez dû l'entendre souvent celle là"
+            field.nextElementSibling.textContent = "C'est trop court ! Vous avez dû l'entendre souvent celle là"
         }
         else if(field.validity.patternMismatch){
-            field.nextElementSibling.innerHTML = "Le champ contient des caractères interdits"
+            if (field.id === "city") {
+                field.nextElementSibling.textContent = "Nous n'avons pas besoin du code postal. Veuillez n'entrer que le nom de la ville"
+            }
+            else {
+            field.nextElementSibling.textContent = "Le champ contient des caractères interdits, merci de n'utiliser que des lettres"
+            }
         }
         else{
-            field.nextElementSibling.innerHTML = ""
+            field.nextElementSibling.textContent = ""
         }
     })
 }
 
 function submitCommand(contact){
+    //Défini le format de notre requète pour qu'il soit conforme aux spécificité de l'api
     const jsonBody = {                          
         contact: {...contact},
         products:[]
     };
     const cart = getCart();
+    //Envoie chaque item de notre panier sur le "bon de commande"
     for (const item of cart) {
         jsonBody.products.push(item.id)
     }
@@ -77,5 +88,6 @@ function submitCommand(contact){
             return res.json();
         }
     })
-    .then(data => window.location.href="http://127.0.0.1:5502/front/html/confirmation.html" + "?" + data.orderId) 
+    //Passe notre numéro de commande en paramètre de l'adresse de confiramtion
+    .then(data => window.location.href = getUrl() + "/front/html/confirmation.html" + "?" + data.orderId) 
 }
