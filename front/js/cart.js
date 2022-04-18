@@ -112,4 +112,4 @@ if(window.location.href === getUrl() + "/front/html/cart.html"){
     deleteBtn.setAttribute("class", "deleteItem");
     deleteBtn.textContent = "Supprimer";
     deleteContainer.appendChild(deleteBtn);
-} */   
+}  */  

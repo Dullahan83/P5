@@ -1,11 +1,10 @@
 //Ajoute nos patterns
-document.getElementById("firstName").setAttribute("pattern", "[\\p{L}- ]+");
+document.getElementById("firstName").setAttribute("pattern", "[\\p{L}-]+");
 document.getElementById("firstName").setAttribute("minlength", 3);
-document.getElementById("lastName").setAttribute("pattern", "[\\p{L}- ]+");
+document.getElementById("lastName").setAttribute("pattern", "[\\p{L}-]+");
 document.getElementById("lastName").setAttribute("minlength", 3);
-document.getElementById("city").setAttribute("pattern", "[\\p{L}- ]+");
+document.getElementById("city").setAttribute("pattern", "[\\p{L}-]+");
 document.getElementById("city").setAttribute("minlength", 4);
-
 
 //Verifie la validité de la totalité du formulaire
 document.querySelector("#order").addEventListener("click", (e)=>{
@@ -38,9 +37,14 @@ document.querySelector("#order").addEventListener("click", (e)=>{
         }
     }
     if(isFormValid){
-        contactList.push(createCustomer())
-        submitCommand(createCustomer())
-        localStorage.clear();
+        if(cart.length === 0){
+            alert("Le panier est vide")
+        }
+        else{
+            contactList.push(createCustomer())
+            submitCommand(createCustomer())
+            localStorage.clear();
+        }
     }
 });
 
@@ -106,6 +110,6 @@ function submitCommand(contact){
             return res.json();
         }
     })
-    //Passe notre numéro de commande en paramètre de l'adresse de confiramtion
+    //Passe notre numéro de commande en paramètre de l'adresse de confirmation et nous redirige sur la page de confirmation
     .then(data => window.location.href = getUrl() + "/front/html/confirmation.html" + "?" + data.orderId) 
 }
